@@ -13,10 +13,17 @@ clock = time.clock()
 servo1 = pyb.Servo(1)   # create a servo object on position P7
 servo2 = pyb.Servo(2)   # create a servo object on position P8
 
+def steer(steer_speed1, steer_speed2):
+    servo1.pulse_width(steer_speed1) # steer
+    servo2.pulse_width(steer_speed2)
+    time.sleep_ms(10)
+
+#print(servo1.calibration())
+i = 0
+back = False
 while(True):
     clock.tick()
     img = sensor.snapshot()
 
-    servo1.speed(30)
-    servo2.speed(30)
+    steer(1520, 1520)
 

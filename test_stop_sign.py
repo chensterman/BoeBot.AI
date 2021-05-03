@@ -14,7 +14,12 @@ sensor.set_gainceiling(16)
 # Set resolution to VGA.
 sensor.set_framesize(sensor.QVGA)
 sensor.set_pixformat(sensor.RGB565)
-
+sensor.set_brightness(3)
+sensor.set_saturation(3)
+sensor.set_contrast(3)
+sensor.skip_frames(time = 2000)
+sensor.set_auto_gain(False) # must be turned off for color tracking
+sensor.set_auto_whitebal(False) # must be turned off for color tracking
 # Load Haar Cascade
 # By default this will use all stages, lower stages is faster but less accurate.
 stop_sign = image.HaarCascade("/stop_sign_classifier_2.cascade")
@@ -32,7 +37,7 @@ while (True):
     # Find stop signs
     # Note: Lower scale factor scales-down the image more and detects smaller objects.
     # Higher threshold results in a higher detection rate, with more false positives.
-    detected = img.find_features(stop_sign, threshold=0.5, scale_factor=1.5)
+    detected = img.find_features(stop_sign, threshold=0.3, scale_factor=1.3)
     for target in detected:
         img.draw_rectangle(target)
         img.draw_string(target[0], target[1], 'Stop sign', (0, 0, 255), mono_space=False)
